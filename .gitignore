@@ -1,2 +1,4 @@
+/__pycache__/
+
 test_template.html
 render_template.py
