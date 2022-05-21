@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
+    <title>Lampada</title>
+</head>
+
+<body>
+    <div class="content">
+        <img src="{{ url_for('static', filename = '/img/lamp.png') }}" id="bluelamp" />
+        <img src="{{ url_for('static', filename = '/img/lamp.png') }}" id="yellowlamp" />
+        <form action="/turnON" method = "post">
+            <main>
+                <input class="l" type="checkbox" onclick="submit()" id="mylamp" name="checkyel">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </main>
+            <main>
+                <input class="l" type="checkbox" onclick="submit()" id="mylamp1" name="checkblue">
+            </main>
+        </form>
+    </div>
+    <!-- <script src="{{ url_for('static', filename = 'script.js') }}"></script> -->
+</body>
+
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../web_lamp/static/style.css">
+    <link rel="stylesheet" href="../web_lamp/static/base.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <title>Lampada</title>
+</head>
+
+<body>
+
+    <div class='box' style="cursor: pointer;" onclick="return turnLedOn()">
+        <div id='circle'>
+          <div id='shine'></div>
+        </div>
+      
+        <div id='trapezoid'></div>
+      
+      
+        <div id='bottom1'></div>
+        <div id='bottom2'></div>
+        <div id='bottom3'></div>
+      
+        <div id='halfCircle'></div>
+      
+        <div class='drop' id='left'></div>
+        <div class='drop' id='right'></div>
+      
+      
+        <div id='wire'></div>
+      
+      
+      
+      
+    </div>
+  
+    <!-- <script src="{{ url_for('static', filename = 'script.js') }}"></script> -->
+    <script>
+        count = 1
+        function turnLedOn(){
+            if (count % 2 == 1)
+            {
+                $('#circle').css('background-color','yellow');
+                $('#trapezoid').css('background-color', 'yellow');
+                count += 1;
+            }
+            else
+            {
+                $('#circle').css('background-color','white');
+                $('#trapezoid').css('background-color', 'white');
+                count += 1;
+            }
+           
+        }
+    </script>
+</body>
+
+</html>
