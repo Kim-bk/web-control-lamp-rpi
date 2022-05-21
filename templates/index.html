@@ -4,87 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename = 'style.css') }}">
-    <title>Lampada</title>
-</head>
-
-<body>
-    <div class="content">
-        <img src="{{ url_for('static', filename = '/img/lamp.png') }}" id="bluelamp" />
-        <img src="{{ url_for('static', filename = '/img/lamp.png') }}" id="yellowlamp" />
-        <form action="/turnON" method = "post">
-            <main>
-                <input class="l" type="checkbox" onclick="submit()" id="mylamp" name="checkyel">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </main>
-            <main>
-                <input class="l" type="checkbox" onclick="submit()" id="mylamp1" name="checkblue">
-            </main>
-        </form>
-    </div>
-    <!-- <script src="{{ url_for('static', filename = 'script.js') }}"></script> -->
-</body>
-
-</html>
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../web_lamp/static/style.css">
-    <link rel="stylesheet" href="../web_lamp/static/base.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'base.css') }}">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <title>Lampada</title>
 </head>
 
 <body>
+    <div style="display:table; align-items:center;">
+        <div class='box' id='box1' style="cursor: pointer;display: inline-block"  name="checkyel">
+            <div id='circle'>
+            <div id='shine'></div>
+            </div>
+            <div id='trapezoid'></div>
+            <div id='bottom1'></div>
+            <div id='bottom2'></div>
+            <div id='bottom3'></div>
+        
+            <div id='halfCircle'></div>
+        
+            <div class='drop' id='left'></div>
+            <div class='drop' id='right'></div>
+        
+            <div id='wire'></div>
+        
+        </div>
+    
 
-    <div class='box' style="cursor: pointer;" onclick="return turnLedOn()">
-        <div id='circle'>
-          <div id='shine'></div>
+        <div class='box' id='box2' style="cursor: pointer;display: inline-block" name="checkblue">
+            <div id='circle'>
+            <div id='shine'></div>
+            </div>
+        
+            <div id='trapezoid'></div>
+            <div id='bottom1'></div>
+            <div id='bottom2'></div>
+            <div id='bottom3'></div>
+        
+            <div id='halfCircle'></div>
+        
+            <div class='drop' id='left'></div>
+            <div class='drop' id='right'></div>
+        
+            <div id='wire'></div>
+        
+        </div>
+
+        <div style="cursor: pointer;display: inline-block; position:absolute;top:365px" >
+            <h4>Turn On/Off Sound Sensor</h4>
+                <label class="switch">
+                    <input type="checkbox" id="sensor" name="checksensor">
+                    <span class="slider round"></span>
+                </label>
         </div>
       
-        <div id='trapezoid'></div>
-      
-      
-        <div id='bottom1'></div>
-        <div id='bottom2'></div>
-        <div id='bottom3'></div>
-      
-        <div id='halfCircle'></div>
-      
-        <div class='drop' id='left'></div>
-        <div class='drop' id='right'></div>
-      
-      
-        <div id='wire'></div>
-      
-      
-      
-      
     </div>
-  
-    <!-- <script src="{{ url_for('static', filename = 'script.js') }}"></script> -->
+
     <script>
-        count = 1
-        function turnLedOn(){
-            if (count % 2 == 1)
+        status_led1 = false
+        status_led2 = false
+        status_sensor = false
+        click_sensor = 1
+        count_both = 1
+        function turnLed1On(id){
+            circle = '#' + id + ' #circle'
+            trapezoid = '#' + id + ' #trapezoid'
+            if (!status_led1)
             {
-                $('#circle').css('background-color','yellow');
-                $('#trapezoid').css('background-color', 'yellow');
-                count += 1;
+                $(circle).css('background-color','yellow');
+                $(trapezoid).css('background-color', 'yellow');
+                status_led1 = true;
             }
             else
             {
-                $('#circle').css('background-color','white');
-                $('#trapezoid').css('background-color', 'white');
-                count += 1;
+                $(circle).css('background-color','white');
+                $(trapezoid).css('background-color', 'white');
+                status_led1 = false;
             }
-           
         }
+
+        function turnLed2On(id){
+            circle = '#' + id + ' #circle'
+            trapezoid = '#' + id + ' #trapezoid'
+            if (!status_led2)
+            {
+                $(circle).css('background-color','#0363f8');
+                $(trapezoid).css('background-color', '#0363f8');
+                status_led2 = true;
+            }
+            else
+            {
+                $(circle).css('background-color','white');
+                $(trapezoid).css('background-color', 'white');
+                status_led2 = false;
+            }
+        }
+
+        function handleSensor(){
+            $('#box1 #circle').css('background-color','white');
+            $('#box1 #trapezoid').css('background-color', 'white');
+            $('#box2 #circle').css('background-color','white');
+            $('#box2 #trapezoid').css('background-color', 'white');
+            status_led1 = false;
+            status_led2 = false;
+        }
+
+        // function turn2Led(){
+        //     count_both += 1
+        //     if (status_led1== true && status_led2 == true)
+        //     {
+        //         if (count_both % 2 != 0)
+        //         {
+        //             console.log('turn off both');
+        //             $('#box1 #circle').css('background-color','white');
+        //             $('#box1 #trapezoid').css('background-color', 'white');
+        //             $('#box2 #circle').css('background-color','white');
+        //             $('#box2 #trapezoid').css('background-color', 'white');
+        //             status_led1 = false;
+        //             status_led2 = false;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         if (count_both % 2 == 0)
+        //         {
+        //             console.log('turn on both');
+        //             $('#box1 #circle').css('background-color','yellow');
+        //             $('#box1 #trapezoid').css('background-color', 'yellow');
+        //             $('#box2 #circle').css('background-color','#0363f8');
+        //             $('#box2 #trapezoid').css('background-color', '#0363f8');
+        //             status_led1 = true;
+        //             status_led2 = true;
+        //         }
+        //         else{
+        //             console.log('turn off both');
+        //             $('#box1 #circle').css('background-color','white');
+        //             $('#box1 #trapezoid').css('background-color', 'white');
+        //             $('#box2 #circle').css('background-color','white');
+        //             $('#box2 #trapezoid').css('background-color', 'white');
+        //             status_led1 = false;
+        //             status_led2 = false;
+        //         }
+        //     }
+        // }
+
+        let box1 = document.querySelector('#box1');
+        let box2 = document.querySelector('#box2');
+        let sensor = document.querySelector('#sensor');
+        box1.onclick = handleClick("box1")
+        box2.onclick = handleClick("box2")
+        sensor.onclick = handleClick("sensor")
+
+        function handleClick(id) {
+            return () => {
+                if (id == 'box1')
+                    turnLed1On(id)
+                else if (id == 'box2')
+                    turnLed2On(id)
+                else if (id == 'sensor')
+                    handleSensor()
+                    click_sensor += 1
+                    if (click_sensor % 2 == 0)
+                        status_sensor = true
+                    else status_sensor = false
+             
+          
+                fetch("http://127.0.0.1:5000/turnON", {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    checkyel: status_led1,
+                    checkblue: status_led2,
+                    checksensor: status_sensor,
+                }),
+                })
+              
+            }
+        }
+
+    
+       
+
     </script>
 </body>
 
